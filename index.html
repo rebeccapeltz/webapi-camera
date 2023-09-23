@@ -45,10 +45,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-sm-12 text-center">
-                    <video id="video" width="400" height="300" v-show="cameraState" playsinline autoplay></video>
+                    <video id="video"  v-show="cameraState" playsinline autoplay></video>
                 </div>
                 <div class="col-lg-6 col-sm-12 text-center">
-                    <canvas id="canvas" width="400" height="300" v-show="!cameraState"></canvas>
+                    <canvas id="canvas" v-show="!cameraState"></canvas>
                 </div>
             </div>
         </div>
