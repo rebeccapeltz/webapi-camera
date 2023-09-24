@@ -101,8 +101,7 @@ async function getDevices() {
 }
 
 function resizeCanvas() {
-
-  const aspectRatio = canvasContainer.height/canvasContainer.width;
+  const aspectRatio = canvasContainer.height / canvasContainer.width;
   const width = videoContainer.offsetWidth;
   const height = videoContainer.offsetHeight;
 
@@ -132,25 +131,31 @@ function snapShot() {
 
 function stop() {
   console.log("stop clicked");
-  video.pause();
+  //  video.pause();
   if (data.currentStream) {
     data.currentStream.getTracks().forEach((track) => {
       track.stop();
     });
     data.videoEl.srcObject = null;
   }
-  data.videoEl.removeAttribute("src");
-  data.videoEl.load();
-  data.canvasEl
-    .getContext("2d")
-    .clearRect(0, 0, data.canvasEl.width, data.canvasEl.height);
+  if (data.videoEl) {
+    data.videoEl.removeAttribute("src");
+    data.videoEl.load();
+  }
+  if (data.canvasEl) {
+    data.canvasEl
+      .getContext("2d")
+      .clearRect(0, 0, data.canvasEl.width, data.canvasEl.height);
+  }
+
   data.isPhoto = false;
   data.cameraState = false;
   disableBtn("stop");
   disableBtn("snapshot");
   disableBtn("download");
-  document.querySelector("#canvas-container").classList.add("hidden-canvas");
-
+  if (document.querySelector("#canvas-container")) {
+    document.querySelector("#canvas-container").classList.add("hidden-canvas");
+  }
 }
 function download() {
   data.canvasEl.width = data.videoEl.videoWidth;
@@ -173,8 +178,8 @@ function download() {
 document.addEventListener("DOMContentLoaded", (e) => {
   const videoContainer = document.querySelector("#video-container");
   const canvasContainer = document.querySelector("#canvas-container");
-  canvasContainer.width = videoContainer.width;
-  canvasContainer.height = videoContainer.height;
+  // canvasContainer.width = videoContainer.width;
+  // canvasContainer.height = videoContainer.height;
 
   let elements = document.querySelectorAll(".home button");
 

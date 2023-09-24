@@ -24,7 +24,7 @@
         <div class="home row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
             <div class="col text-center">
                 <div class="p-3 border bg-light">
-                    <button id="camera" style="width:75%;" type="button" class="btn btn-primary btn-lg">Camera</button>
+                    <button id="camera" style="width:75%;" type="button" class="btn btn-primary btn-lg">Start</button>
                 </div>
             </div>
             <div class="col text-center">
@@ -43,17 +43,21 @@
                 </div>
             </div>
         </div>
-  
-        <div style="background-color: black;" class="row row-cols-1 row-cols-lg-2 justify-content-center">
-            <div id="video-container">
-                <video id="video" playsinline autoplay></video>
-            </div>
- 
-            <div id="canvas-container" class="hidden-canvas">
+
+        <div  class="row row-cols-1 row-cols-lg-2 justify-content-center mb-5">
+
+            <div id="canvas-container" class="hidden-canvas mb-5">
+                <h3 class="text-center">Snapshot</h3>
                 <canvas id="canvas"></canvas>
             </div>
+
+            <div id="video-container" class="mb-5">
+                <h3 class="text-center">Video Camera</h3>
+                <video id="video" playsinline autoplay></video>
+            </div>
+
         </div>
-      
+
         <div class="row">
             <footer class="mt-auto d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
                 <p class="col-md-6 mb-0 text-body-secondary text-center">© 2023 Rebecca Peltz</p>
