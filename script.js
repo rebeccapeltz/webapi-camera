@@ -28,6 +28,7 @@ function disableBtn(id) {
 
 function start() {
   stop();
+  document.querySelector("#video-container").classList.remove("hidden-video");
 
   enableBtn("camera");
 
@@ -153,6 +154,9 @@ function stop() {
   disableBtn("stop");
   disableBtn("snapshot");
   disableBtn("download");
+  if (document.querySelector("#video-container")) {
+    document.querySelector("#video-container").classList.add("hidden-video");
+  }
   if (document.querySelector("#canvas-container")) {
     document.querySelector("#canvas-container").classList.add("hidden-canvas");
   }
