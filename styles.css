@@ -18,18 +18,28 @@ body {
   div#links a {
     line-height: 0.8em;
   }
+  canvas, video {
+    min-height: 215px;
+    margin-bottom: 3rem;
+  }
 }
 
 canvas {
   background-color: #ccc;
   display: block;
-  min-height: 300px;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  /* min-height: 300px; */
   /* width: 100%; */
 }
 video {
   background: #222;
   display: block;
-  min-height: 300px;
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  /* min-height: 300px; */
 }
 
 /* 

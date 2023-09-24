@@ -112,8 +112,8 @@ function resizeCanvas() {
 
 function snapShot() {
   document.querySelector("#canvas-container").classList.remove("hidden-canvas");
-  document.querySelector("#canvas-container").width = data.videoEl.videoWidth;
-  document.querySelector("#canvas-container").height = data.videoEl.videoHeight;
+  // document.querySelector("#canvas-container").width = data.videoEl.videoWidth;
+  // document.querySelector("#canvas-container").height = data.videoEl.videoHeight;
   data.canvasEl.width = data.videoEl.videoWidth;
   data.canvasEl.height = data.videoEl.videoHeight;
   data.canvasEl
