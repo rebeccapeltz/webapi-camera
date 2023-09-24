@@ -1,42 +1,38 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  margin: 0;
+  height: 100%;
+}
 
 .home {
-    margin: 3rem auto;
+  margin: 2rem auto;
 }
 
 .hidden {
-    display: none;
+  display: none;
+}
+
+@media screen and (min-width: 1000px) {
+  /* hack! to detect non-touch devices */
+  div#links a {
+    line-height: 0.8em;
   }
-  
-   @media screen and (min-width: 1000px) {
-  
-    /* hack! to detect non-touch devices */
-    div#links a {
-      line-height: 0.8em;
-    }
-  } 
-  
-  body {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    margin: 0;
-    /* padding: 1em; */
-  }
-  
-  
-  canvas {
-    background-color: #ccc;
-    /* max-width: 100%; */
-    /* width: 100%; */
-  }
-  video {
-    background: #222;
-    margin: 0 0 20px 0;
-    /* --width: 100%; */
-    /* max-width: 100%; */
-    /* height: 100%; */
-  }
-  
-  /* 
+}
+
+canvas {
+  background-color: #ccc;
+  display: block;
+  min-height: 300px;
+  /* width: 100%; */
+}
+video {
+  background: #222;
+  display: block;
+  min-height: 300px;
+}
+
+/* 
   @media screen and (min-width: 550px) {
     div#container {
       margin: 1rem auto;
@@ -46,39 +42,37 @@
     
     }
   } */
-  
-  
-  
-  /* h1 {
+
+h1 {
+  text-align: center;
+  margin: 1rem;
+}
+
+/* h1 {
     border-bottom: 1px solid #ccc;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     margin: 0 0 0.8em 0;
     padding: 0 0 0.2em 0;
   } */
-  
-  h2 {
-    color: #444;
-    font-weight: 500;
-  }
-  
-  h3 {
-    border-top: 1px solid #eee;
-    color: #666;
-    font-weight: 500;
-    margin: 10px 0 10px 0;
-    white-space: nowrap;
-  }
-  
-  
-  img {
-    border: none;
-    max-width: 100%;
-  }
-  
-  
- 
 
+/* h2 {
+  color: #444;
+  font-weight: 500;
+} */
+
+/* h3 {
+  border-top: 1px solid #eee;
+  color: #666;
+  font-weight: 500;
+  margin: 10px 0 10px 0;
+  white-space: nowrap;
+} */
+
+/* img {
+  border: none;
+  max-width: 100%;
+} */
 
 button:disabled {
   background: lightgray;
@@ -104,8 +98,19 @@ form {
   visibility: hidden;
 }
 
-h1 {text-align: center;}
+.hidden-canvas {
+  /* visibility: hidden; */
+  display: none;
+}
 
 footer {
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
+
+.camera .row {
+  height: 215px;
+}
+
+/* #video-container, #canvas-container{
+  background-color:red;
+} */

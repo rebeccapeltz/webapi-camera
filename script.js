@@ -85,7 +85,6 @@ async function getDevices() {
   }
   try {
     let allDevices = await navigator.mediaDevices.enumerateDevices();
-    // debugger;
     for (let mediaDevice of allDevices) {
       if (mediaDevice.kind === "videoinput") {
         let option = {};
@@ -101,8 +100,22 @@ async function getDevices() {
   }
 }
 
+function resizeCanvas() {
+
+  const aspectRatio = canvasContainer.height/canvasContainer.width;
+  const width = videoContainer.offsetWidth;
+  const height = videoContainer.offsetHeight;
+
+  canvasContainer.width = width;
+  canvasContainer.height = Math.round(width * aspectRatio);
+}
+
 function snapShot() {
-  // debugger
+  document.querySelector("#canvas-container").classList.remove("hidden-canvas");
+  document.querySelector("#canvas-container").width = data.videoEl.videoWidth;
+  document.querySelector("#canvas-container").height = data.videoEl.videoHeight;
+  data.canvasEl.width = data.videoEl.videoWidth;
+  data.canvasEl.height = data.videoEl.videoHeight;
   data.canvasEl
     .getContext("2d")
     .drawImage(data.videoEl, 0, 0, data.canvasEl.width, data.canvasEl.height);
@@ -136,8 +149,12 @@ function stop() {
   disableBtn("stop");
   disableBtn("snapshot");
   disableBtn("download");
+  document.querySelector("#canvas-container").classList.add("hidden-canvas");
+
 }
 function download() {
+  data.canvasEl.width = data.videoEl.videoWidth;
+  data.canvasEl.height = data.videoEl.videoHeight;
   if (data.fileData) {
     data.canvasEl
       .getContext("2d")
@@ -154,6 +171,11 @@ function download() {
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
+  const videoContainer = document.querySelector("#video-container");
+  const canvasContainer = document.querySelector("#canvas-container");
+  canvasContainer.width = videoContainer.width;
+  canvasContainer.height = videoContainer.height;
+
   let elements = document.querySelectorAll(".home button");
 
   elements.forEach((element) => {
