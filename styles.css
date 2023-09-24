@@ -108,7 +108,7 @@ form {
   visibility: hidden;
 }
 
-.hidden-canvas, .hidden-video {
+.hidden-canvas, .hidden-video, .hidden-form {
   /* visibility: hidden; */
   display: none;
 }

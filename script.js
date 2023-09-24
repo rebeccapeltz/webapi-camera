@@ -32,6 +32,7 @@ function start() {
 
   enableBtn("camera");
 
+  // debugger;
   getDevices()
     .then((res) => {
       //when first loaded selected device can use 1st option
@@ -92,9 +93,16 @@ async function getDevices() {
         option.text = mediaDevice.label;
         option.value = mediaDevice.deviceId;
         data.options.push(option);
+        var selection = document.createElement("option");
+        selection.value = option.value;
+        selection.text = option.text;
+        document.querySelector("#device-option").appendChild(selection);
         data.devices.push(mediaDevice);
       }
+      // debugger
+      document.querySelector("#device-form").classList.remove("hidden-form");
     }
+
     return true;
   } catch (err) {
     throw err;
@@ -159,6 +167,9 @@ function stop() {
   }
   if (document.querySelector("#canvas-container")) {
     document.querySelector("#canvas-container").classList.add("hidden-canvas");
+  }
+  if (document.querySelector("#device-form")) {
+    document.querySelector("#device-form").classList.add("hidden-form");
   }
 }
 function download() {
