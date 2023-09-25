@@ -52,7 +52,7 @@ function start() {
       data.selectedDevice = data.options[0].value;
       debugger;
       data.selectedLabel = data.options[0].text;
-      alert("getDevices:" + data.selectedLabel);
+      // alert("getDevices:" + data.selectedLabel);
       document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.selectedLabel;
 
       setConstraints();
@@ -106,13 +106,13 @@ function deviceOptionChange() {
   data.selectedDevice = value;
   data.selectedLabel = data.options[0].text;
   // debugger
-  alert("getDevices: " + data.selectedLabel);
-  document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.selectedLabel;
+  // alert("getDevices: " + data.selectedLabel);
+  document.querySelector("#current-constraint").innerHTML = "deviceOptionChange:" + data.selectedLabel;
   deviceChange();
 }
 async function getDevices() {
   // trigger prompt for permission
-  await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+  await navigator.mediaDevices.getUserMedia(data.constraints);
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
     console.log("enumerated devices not supported");
     return false;
