@@ -1,5 +1,4 @@
 const data = {
-  active: false,
   videoEl: null,
   canvasEl: null,
   fileData: null,
@@ -27,7 +26,21 @@ function disableBtn(id) {
   }
 }
 
-async function  deviceChange () {
+function hide(id){
+  let el = document.querySelector(`#${id}`);
+  if (!el.classList.contains("hidden")) {
+    el.classList.add("hidden");
+  }
+}
+
+function show(id){
+  let el = document.querySelector(`#${id}`);
+  if (el.classList.contains("hidden")) {
+    el.classList.remove("hidden");
+  }
+}
+
+async function deviceChange() {
   stopVideoAndCanvas();
   setConstraints();
   const result = await getMedia();
@@ -35,39 +48,52 @@ async function  deviceChange () {
   console.log("device change:", result);
 }
 
-function start() {
+async function start() {
   stop();
-  document.querySelector("#video-container").classList.remove("hidden-video");
-
+  show("video-container");
+  // document.querySelector("#video-container").classList.remove("hidden-video");
   enableBtn("camera");
 
   // debugger;
-  getDevices()
-    .then((res) => {
-      //when first loaded selected device can use 1st option
-      data.selectedDevice = data.options[0].value;
-      debugger;
-      data.selectedLabel = data.options[0].text;
-      alert("getDevices:" + data.selectedLabel);
-      document.querySelector("#current-constraint").innerHTML =
-        "getDevices:" + data.slectedDevice + " " + data.selectedLabel;
+  const resultDevices = await getDevices();
 
-      setConstraints();
-      document.querySelector("#current-constraint").innerHTML =
-        "after setConstraints:" + data.slectedDevice + " " + data.selectedLabel;
+  // getDevices()
+  //   .then((res) => {
+  //when first loaded selected device can use 1st option
+  data.selectedDevice = data.options[0].value;
+  // debugger;
+  data.selectedLabel = data.options[0].text;
+  // alert("getDevices:" + data.selectedLabel);
+  // document.querySelector("#current-constraint").innerHTML =
+  //   "getDevices:" + data.slectedDevice + " " + data.selectedLabel;
 
-      console.log("get devices:", res);
-    })
-    .then(() => {
-      getMedia().then((res) => {
-        data.isStartEnabled = false;
-        disableBtn("camera");
-        data.cameraState = true;
-        enableBtn("stop");
-        enableBtn("snapshot");
-        console.log("get media", res);
-      });
-    });
+  setConstraints();
+  // document.querySelector("#current-constraint").innerHTML =
+  //   "after setConstraints:" + data.slectedDevice + " " + data.selectedLabel;
+
+  console.log("get devices:", resultDevices);
+  // })
+  // .then(() => {
+  const resultMedia = getMedia();
+  if (resultMedia) {
+    console.log("get media", resultMedia);
+
+    // getMedia().then((res) => {
+    data.isStartEnabled = false;
+    disableBtn("camera");
+    data.cameraState = true;
+    enableBtn("stop");
+    enableBtn("snapshot");
+  }
+  //   // getMedia().then((res) => {
+  //     data.isStartEnabled = false;
+  //     disableBtn("camera");
+  //     data.cameraState = true;
+  //     enableBtn("stop");
+  //     enableBtn("snapshot");
+  //     console.log("get media", res);
+  //   });
+  // });
 }
 
 function setConstraints() {
@@ -86,13 +112,14 @@ function setConstraints() {
     audio: false,
   };
   // debugger
-  document.querySelector("#current-constraint").innerHTML =
-    "setConstraints:" +
-    data.selectedDevice +
-    " " +
-    data.selectedLabel +
-    JSON.stringify(data.constraints, null, 2);
+  // document.querySelector("#current-constraint").innerHTML =
+  //   "setConstraints:" +
+  //   data.selectedDevice +
+  //   " " +
+  //   data.selectedLabel +
+  //   JSON.stringify(data.constraints, null, 2);
 }
+
 async function getMedia() {
   try {
     data.stream = await navigator.mediaDevices.getUserMedia(data.constraints);
@@ -105,18 +132,18 @@ async function getMedia() {
   }
 }
 function deviceOptionChange() {
-  debugger;
+  // debugger;
   const el = document.querySelector("#device-option");
   const value = el.value;
   const text = el.options[el.selectedIndex].text;
   data.selectedDevice = value;
   data.selectedLabel = text;
   // debugger
-  alert("deviceOptionChange: " + data.selectedLabel);
+  // alert("deviceOptionChange: " + data.selectedLabel);
   deviceChange();
 }
 async function getDevices() {
-  debugger;
+  // debugger;
   // trigger prompt for permission
   await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
@@ -146,7 +173,8 @@ async function getDevices() {
         data.devices.push(mediaDevice);
       }
       // debugger
-      document.querySelector("#device-form").classList.remove("hidden-form");
+      if (options.length > 1) show("device-form");
+      // document.querySelector("#device-form").classList.remove("hidden-form");
     }
 
     return true;
@@ -155,19 +183,9 @@ async function getDevices() {
   }
 }
 
-function resizeCanvas() {
-  const aspectRatio = canvasContainer.height / canvasContainer.width;
-  const width = videoContainer.offsetWidth;
-  const height = videoContainer.offsetHeight;
-
-  canvasContainer.width = width;
-  canvasContainer.height = Math.round(width * aspectRatio);
-}
-
 function snapShot() {
-  document.querySelector("#canvas-container").classList.remove("hidden-canvas");
-  // document.querySelector("#canvas-container").width = data.videoEl.videoWidth;
-  // document.querySelector("#canvas-container").height = data.videoEl.videoHeight;
+  show("canvas-container");
+  // document.querySelector("#canvas-container").classList.remove("hidden-canvas");
   data.canvasEl.width = data.videoEl.videoWidth;
   data.canvasEl.height = data.videoEl.videoHeight;
   data.canvasEl
@@ -185,7 +203,7 @@ function snapShot() {
 }
 
 function stopVideoAndCanvas() {
-   data.videoEl.pause();
+  data.videoEl.pause();
   if (data.currentStream) {
     data.currentStream.getTracks().forEach((track) => {
       track.stop();
@@ -206,21 +224,26 @@ function stopVideoAndCanvas() {
   data.cameraState = false;
 }
 
-
 function stop() {
   console.log("stop clicked");
-  stopVideoAndCanvas()
+  stopVideoAndCanvas();
   // hide video, canvas and form
-  if (document.querySelector("#video-container")) {
-    document.querySelector("#video-container").classList.add("hidden-video");
-  }
-  if (document.querySelector("#canvas-container")) {
-    document.querySelector("#canvas-container").classList.add("hidden-canvas");
-  }
+  hide("video-container");
+  // if (document.querySelector("#video-container")) {
+  //   document.querySelector("#video-container").classList.add("hidden-video");
+  // }
+  hide("canvas-container");
+  // if (document.querySelector("#canvas-container")) {
+  //   document.querySelector("#canvas-container").classList.add("hidden-canvas");
+  // }
   if (document.querySelector("#device-form")) {
-    document.querySelector("#device-form").classList.add("hidden-form");
+    hide("device-form");
+    // document.querySelector("#device-form").classList.add("hidden-form");
   }
   enableBtn("camera");
+  disableBtn("stop");
+  disableBtn("download");
+  disableBtn("snapshot");
 }
 function download() {
   data.canvasEl.width = data.videoEl.videoWidth;
@@ -241,10 +264,8 @@ function download() {
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
-  const videoContainer = document.querySelector("#video-container");
-  const canvasContainer = document.querySelector("#canvas-container");
-  // canvasContainer.width = videoContainer.width;
-  // canvasContainer.height = videoContainer.height;
+  // const videoContainer = document.querySelector("#video-container");
+  // const canvasContainer = document.querySelector("#canvas-container");
 
   let elements = document.querySelectorAll(".home button");
 

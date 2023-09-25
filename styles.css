@@ -25,21 +25,17 @@ body {
 }
 
 canvas {
-  background-color: #ccc;
   display: block;
   max-width:100%;
   height:100%;
   object-fit:cover;
-  /* min-height: 300px; */
-  /* width: 100%; */
 }
+
 video {
-  background: #222;
   display: block;
   max-width:100%;
   height:100%;
   object-fit: cover;
-  /* min-height: 300px; */
 }
 
 /* 
@@ -58,31 +54,7 @@ h1 {
   margin: 1rem;
 }
 
-/* h1 {
-    border-bottom: 1px solid #ccc;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    margin: 0 0 0.8em 0;
-    padding: 0 0 0.2em 0;
-  } */
 
-/* h2 {
-  color: #444;
-  font-weight: 500;
-} */
-
-/* h3 {
-  border-top: 1px solid #eee;
-  color: #666;
-  font-weight: 500;
-  margin: 10px 0 10px 0;
-  white-space: nowrap;
-} */
-
-/* img {
-  border: none;
-  max-width: 100%;
-} */
 
 button:disabled {
   background: lightgray;
@@ -106,11 +78,6 @@ form {
 }
 .hidden-link {
   visibility: hidden;
-}
-
-.hidden-canvas, .hidden-video, .hidden-form {
-  /* visibility: hidden; */
-  display: none;
 }
 
 footer {
