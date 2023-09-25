@@ -56,6 +56,8 @@ function start() {
       document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.selectedLabel;
 
       setConstraints();
+      document.querySelector("#current-constraint").innerHTML = "after setConstraints:" + data.selectedLabel;
+
       console.log("get devices:", res);
     })
     .then(() => {
@@ -102,9 +104,9 @@ async function getMedia() {
 function deviceOptionChange() {
   // debugger;
   const value = document.querySelector("#device-option").value;
-
+  const text = document.querySelector("#device-option").text
   data.selectedDevice = value;
-  data.selectedLabel = data.options[0].text;
+  data.selectedLabel = text;
   // debugger
   alert("deviceOptionChange: " + data.selectedLabel);
   document.querySelector("#current-constraint").innerHTML = "deviceOptionChange:" + data.selectedLabel;
