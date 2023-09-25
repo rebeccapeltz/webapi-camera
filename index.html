@@ -46,7 +46,8 @@
         <div class="row" class="justify-content-center">
             <form id="device-form"  class="hidden-form">
               <label for="device-option">Select Device Option:</label>
-              <select name="device-option" id="device-option" form="device-option-form">
+              <select name="device-option" id="device-option" onchange="deviceOptionChange()" form="device-option-form">
+                <option value="null">null</option>
               </select>
         </div>
 
