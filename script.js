@@ -27,18 +27,12 @@ function disableBtn(id) {
   }
 }
 
-function deviceChange() {
-  disableBtn("camera");
-  stop();
-  //don't change selected device
+async function  deviceChange () {
+  stopVideoAndCanvas();
   setConstraints();
-  this.getMedia().then((result) => {
-    // this.isStartEnabled = false;
-
-    this.cameraState = true;
-    // eslint-disable-next-line no-console
-    console.log("device change:", result);
-  });
+  const result = await getMedia();
+  data.cameraState = true;
+  console.log("device change:", result);
 }
 
 function start() {
@@ -138,7 +132,7 @@ async function getDevices() {
     for (var i = options.length; i--; ) {
       select_item.removeChild(options[i]);
     }
-    
+
     for (let mediaDevice of allDevices) {
       if (mediaDevice.kind === "videoinput") {
         let option = {};
@@ -190,9 +184,8 @@ function snapShot() {
   enableBtn("download");
 }
 
-function stop() {
-  console.log("stop clicked");
-  //  video.pause();
+function stopVideoAndCanvas() {
+   data.videoEl.pause();
   if (data.currentStream) {
     data.currentStream.getTracks().forEach((track) => {
       track.stop();
@@ -211,9 +204,13 @@ function stop() {
 
   data.isPhoto = false;
   data.cameraState = false;
-  disableBtn("stop");
-  disableBtn("snapshot");
-  disableBtn("download");
+}
+
+
+function stop() {
+  console.log("stop clicked");
+  stopVideoAndCanvas()
+  // hide video, canvas and form
   if (document.querySelector("#video-container")) {
     document.querySelector("#video-container").classList.add("hidden-video");
   }
