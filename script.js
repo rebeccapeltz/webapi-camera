@@ -53,6 +53,8 @@ function start() {
       debugger;
       data.selectedLabel = data.options[0].text;
       alert("getDevices:" + data.selectedLabel);
+      document.querySelector("#current-contstraint").value = "getDevices:" + data.selectedLabel;
+
       setConstraints();
       console.log("get devices:", res);
     })
@@ -102,6 +104,7 @@ function deviceOptionChange() {
   data.selectedLabel = data.options[0].text;
   debugger
   alert("getDevices: " + data.selectedLabel);
+  document.querySelector("#current-contstraint").value = "getDevices:" + data.selectedLabel;
   deviceChange();
 }
 async function getDevices() {
