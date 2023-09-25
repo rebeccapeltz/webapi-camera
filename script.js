@@ -34,7 +34,7 @@ function deviceChange() {
   setConstraints();
   this.getMedia().then((result) => {
     // this.isStartEnabled = false;
-    
+
     this.cameraState = true;
     // eslint-disable-next-line no-console
     console.log("device change:", result);
@@ -55,17 +55,19 @@ function start() {
       debugger;
       data.selectedLabel = data.options[0].text;
       alert("getDevices:" + data.selectedLabel);
-      document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.slectedDevice + " "  + data.selectedLabel;
+      document.querySelector("#current-constraint").innerHTML =
+        "getDevices:" + data.slectedDevice + " " + data.selectedLabel;
 
       setConstraints();
-      document.querySelector("#current-constraint").innerHTML = "after setConstraints:" + data.slectedDevice + " "  + data.selectedLabel;
+      document.querySelector("#current-constraint").innerHTML =
+        "after setConstraints:" + data.slectedDevice + " " + data.selectedLabel;
 
       console.log("get devices:", res);
     })
     .then(() => {
       getMedia().then((res) => {
         data.isStartEnabled = false;
-        disableBtn("camera")
+        disableBtn("camera");
         data.cameraState = true;
         enableBtn("stop");
         enableBtn("snapshot");
@@ -90,8 +92,12 @@ function setConstraints() {
     audio: false,
   };
   // debugger
-  document.querySelector("#current-constraint").innerHTML = "setConstraints:" + data.selectedDevice + " " + data.selectedLabel + JSON.stringify(data.constraints,null,2);
-
+  document.querySelector("#current-constraint").innerHTML =
+    "setConstraints:" +
+    data.selectedDevice +
+    " " +
+    data.selectedLabel +
+    JSON.stringify(data.constraints, null, 2);
 }
 async function getMedia() {
   try {
@@ -106,9 +112,9 @@ async function getMedia() {
 }
 function deviceOptionChange() {
   debugger;
-  const el = document.querySelector("#device-option")
+  const el = document.querySelector("#device-option");
   const value = el.value;
-  const text = el.options[el.selectedIndex].text
+  const text = el.options[el.selectedIndex].text;
   data.selectedDevice = value;
   data.selectedLabel = text;
   // debugger
@@ -116,7 +122,7 @@ function deviceOptionChange() {
   deviceChange();
 }
 async function getDevices() {
-  debugger
+  debugger;
   // trigger prompt for permission
   await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
@@ -126,6 +132,13 @@ async function getDevices() {
   try {
     let allDevices = await navigator.mediaDevices.enumerateDevices();
     data.options = [];
+    // clear options before adding
+    let select_item = document.querySelector("#device-option");
+    let options = select_item.getElementsByTagName("option");
+    for (var i = options.length; i--; ) {
+      select_item.removeChild(options[i]);
+    }
+    
     for (let mediaDevice of allDevices) {
       if (mediaDevice.kind === "videoinput") {
         let option = {};
