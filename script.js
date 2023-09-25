@@ -28,11 +28,13 @@ function disableBtn(id) {
 }
 
 function deviceChange() {
+  disableBtn("camera");
   stop();
   //don't change selected device
   setConstraints();
   this.getMedia().then((result) => {
-    this.isStartEnabled = false;
+    // this.isStartEnabled = false;
+    
     this.cameraState = true;
     // eslint-disable-next-line no-console
     console.log("device change:", result);
@@ -63,6 +65,7 @@ function start() {
     .then(() => {
       getMedia().then((res) => {
         data.isStartEnabled = false;
+        disableBtn("camera")
         data.cameraState = true;
         enableBtn("stop");
         enableBtn("snapshot");
@@ -207,6 +210,7 @@ function stop() {
   if (document.querySelector("#device-form")) {
     document.querySelector("#device-form").classList.add("hidden-form");
   }
+  enableBtn("camera");
 }
 function download() {
   data.canvasEl.width = data.videoEl.videoWidth;
