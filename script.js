@@ -53,10 +53,10 @@ function start() {
       debugger;
       data.selectedLabel = data.options[0].text;
       alert("getDevices:" + data.selectedLabel);
-      document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.selectedLabel;
+      document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.slectedDevice + " "  + data.selectedLabel;
 
       setConstraints();
-      document.querySelector("#current-constraint").innerHTML = "after setConstraints:" + data.selectedLabel;
+      document.querySelector("#current-constraint").innerHTML = "after setConstraints:" + data.slectedDevice + " "  + data.selectedLabel;
 
       console.log("get devices:", res);
     })
@@ -87,7 +87,7 @@ function setConstraints() {
     audio: false,
   };
   // debugger
-  document.querySelector("#current-constraint").innerHTML = "setConstraints:" + data.selectedLabel + JSON.stringify(data.constraints,null,2);
+  document.querySelector("#current-constraint").innerHTML = "setConstraints:" + data.selectedDevice + " " + data.selectedLabel + JSON.stringify(data.constraints,null,2);
 
 }
 async function getMedia() {
@@ -109,7 +109,6 @@ function deviceOptionChange() {
   data.selectedLabel = text;
   // debugger
   alert("deviceOptionChange: " + data.selectedLabel);
-  document.querySelector("#current-constraint").innerHTML = "deviceOptionChange:" + data.selectedLabel;
   deviceChange();
 }
 async function getDevices() {
