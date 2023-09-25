@@ -9,6 +9,7 @@ const data = {
   devices: [],
   constraints: {},
   selectedDevice: null,
+  selectedLabel: null,
   cameraState: true,
   options: [],
 };
@@ -26,11 +27,11 @@ function disableBtn(id) {
   }
 }
 
-function deviceChange(){
+function deviceChange() {
   stop();
   //don't change selected device
   setConstraints();
-  this.getMedia().then(result => {
+  this.getMedia().then((result) => {
     this.isStartEnabled = false;
     this.cameraState = true;
     // eslint-disable-next-line no-console
@@ -49,6 +50,9 @@ function start() {
     .then((res) => {
       //when first loaded selected device can use 1st option
       data.selectedDevice = data.options[0].value;
+      debugger;
+      data.selectedLabel = data.options[0].text;
+      alert("getDevices:" + data.selectedLabel);
       setConstraints();
       console.log("get devices:", res);
     })
@@ -69,12 +73,11 @@ function setConstraints() {
   if (data.selectedDevice === null) {
     videoContstraints.facingMode = "environment";
   } else {
-
     videoContstraints.deviceId = {
       exact: data.selectedDevice,
     };
   }
-
+  debugger;
   data.constraints = {
     video: videoContstraints,
     audio: false,
@@ -91,12 +94,15 @@ async function getMedia() {
     throw err;
   }
 }
-function deviceOptionChange()
-{
-  debugger
+function deviceOptionChange() {
+  debugger;
   const value = document.querySelector("#device-option").value;
-  data.selectedDevice = value
-  deviceChange()
+
+  data.selectedDevice = value;
+  data.selectedLabel = data.options[0].text;
+  debugger
+  alert("getDevices: " + data.selectedLabel);
+  deviceChange();
 }
 async function getDevices() {
   // trigger prompt for permission
@@ -107,6 +113,7 @@ async function getDevices() {
   }
   try {
     let allDevices = await navigator.mediaDevices.enumerateDevices();
+    data.options = [];
     for (let mediaDevice of allDevices) {
       if (mediaDevice.kind === "videoinput") {
         let option = {};
