@@ -53,7 +53,7 @@ function start() {
       debugger;
       data.selectedLabel = data.options[0].text;
       alert("getDevices:" + data.selectedLabel);
-      document.querySelector("#current-contstraint").value = "getDevices:" + data.selectedLabel;
+      document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.selectedLabel;
 
       setConstraints();
       console.log("get devices:", res);
@@ -70,20 +70,23 @@ function start() {
 }
 
 function setConstraints() {
-  const videoContstraints = {};
+  const videoConstraints = {};
 
   if (data.selectedDevice === null) {
-    videoContstraints.facingMode = "environment";
+    videoConstraints.facingMode = "environment";
   } else {
-    videoContstraints.deviceId = {
+    videoConstraints.deviceId = {
       exact: data.selectedDevice,
     };
   }
-  debugger;
+  // debugger;
   data.constraints = {
-    video: videoContstraints,
+    video: videoConstraints,
     audio: false,
   };
+  // debugger
+  document.querySelector("#current-constraint").innerHTML = "setConstraints:" + data.selectedLabel + JSON.stringify(data.constraints,null,2);
+
 }
 async function getMedia() {
   try {
@@ -97,14 +100,14 @@ async function getMedia() {
   }
 }
 function deviceOptionChange() {
-  debugger;
+  // debugger;
   const value = document.querySelector("#device-option").value;
 
   data.selectedDevice = value;
   data.selectedLabel = data.options[0].text;
-  debugger
+  // debugger
   alert("getDevices: " + data.selectedLabel);
-  document.querySelector("#current-contstraint").value = "getDevices:" + data.selectedLabel;
+  document.querySelector("#current-constraint").innerHTML = "getDevices:" + data.selectedLabel;
   deviceChange();
 }
 async function getDevices() {
