@@ -102,9 +102,10 @@ async function getMedia() {
   }
 }
 function deviceOptionChange() {
-  // debugger;
-  const value = document.querySelector("#device-option").value;
-  const text = document.querySelector("#device-option").text
+  debugger;
+  const el = document.querySelector("#device-option")
+  const value = el.value;
+  const text = el.options[el.selectedIndex].text
   data.selectedDevice = value;
   data.selectedLabel = text;
   // debugger
