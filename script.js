@@ -2,14 +2,14 @@ const data = {
   videoEl: null,
   canvasEl: null,
   fileData: null,
-  isStartEnabled: true,
+  // isStartEnabled: true,
   currentStream: null,
-  isPhoto: false,
-  devices: [],
+  // isPhoto: false,
+  // devices: [],
   constraints: {},
   selectedDevice: null,
-  selectedLabel: null,
-  cameraState: true,
+  // selectedLabel: null,
+  // cameraState: true,
   options: [],
 };
 
@@ -44,7 +44,7 @@ async function deviceChange() {
   stopVideoAndCanvas();
   setConstraints();
   const result = await getMedia();
-  data.cameraState = true;
+  // data.cameraState = true;
   console.log("device change:", result);
 }
 
@@ -62,7 +62,7 @@ async function start() {
   //when first loaded selected device can use 1st option
   data.selectedDevice = data.options[0].value;
   // debugger;
-  data.selectedLabel = data.options[0].text;
+  // data.selectedLabel = data.options[0].text;
   // alert("getDevices:" + data.selectedLabel);
   // document.querySelector("#current-constraint").innerHTML =
   //   "getDevices:" + data.slectedDevice + " " + data.selectedLabel;
@@ -79,9 +79,9 @@ async function start() {
     console.log("get media", resultMedia);
 
     // getMedia().then((res) => {
-    data.isStartEnabled = false;
+    // data.isStartEnabled = false;
     disableBtn("camera");
-    data.cameraState = true;
+    // data.cameraState = true;
     enableBtn("stop");
     enableBtn("snapshot");
   }
@@ -137,7 +137,7 @@ function deviceOptionChange() {
   const value = el.value;
   const text = el.options[el.selectedIndex].text;
   data.selectedDevice = value;
-  data.selectedLabel = text;
+  // data.selectedLabel = text;
   // debugger
   // alert("deviceOptionChange: " + data.selectedLabel);
   deviceChange();
@@ -145,7 +145,7 @@ function deviceOptionChange() {
 async function getDevices() {
   // debugger;
   // trigger prompt for permission
-  await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+  await navigator.mediaDevices.getUserMedia({  video: true });
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
     console.log("enumerated devices not supported");
     return false;
@@ -170,7 +170,7 @@ async function getDevices() {
         selection.value = option.value;
         selection.text = option.text;
         document.querySelector("#device-option").appendChild(selection);
-        data.devices.push(mediaDevice);
+        // data.devices.push(mediaDevice);
       }
       // debugger
       if (options.length > 1) show("device-form");
@@ -192,8 +192,8 @@ function snapShot() {
     .getContext("2d")
     .drawImage(data.videoEl, 0, 0, data.canvasEl.width, data.canvasEl.height);
   data.fileData = data.canvasEl.toDataURL("image/jpeg");
-  data.isPhoto = true;
-  data.cameraState = false;
+  // data.isPhoto = true;
+  // data.cameraState = false;
   //remove any hidden links used for download
   let hiddenLinks = document.querySelectorAll(".hidden_links");
   for (let hiddenLink of hiddenLinks) {
@@ -220,8 +220,8 @@ function stopVideoAndCanvas() {
       .clearRect(0, 0, data.canvasEl.width, data.canvasEl.height);
   }
 
-  data.isPhoto = false;
-  data.cameraState = false;
+  // data.isPhoto = false;
+  // data.cameraState = false;
 }
 
 function stop() {
@@ -246,12 +246,12 @@ function stop() {
   disableBtn("snapshot");
 }
 function download() {
-  data.canvasEl.width = data.videoEl.videoWidth;
-  data.canvasEl.height = data.videoEl.videoHeight;
+  // data.canvasEl.width = data.videoEl.videoWidth;
+  // data.canvasEl.height = data.videoEl.videoHeight;
   if (data.fileData) {
-    data.canvasEl
-      .getContext("2d")
-      .drawImage(data.videoEl, 0, 0, data.canvasEl.width, data.canvasEl.height);
+    // data.canvasEl
+    //   .getContext("2d")
+    //   .drawImage(data.videoEl, 0, 0, data.canvasEl.width, data.canvasEl.height);
     let a = document.createElement("a");
     a.classList.add("hidden-link");
     a.href = data.fileData;
