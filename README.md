@@ -9,6 +9,8 @@ id0[User clicks Start Button] --> id1(START)
 id1(START) --> id2(Show Video Container)
 id2(Show Video Container) --> id3(Enable Snapshot Button)
 id2(Show Video Container) --> id4(Enable Stop Button)
+id3(Enable Snapshot Button) --> id5(getUserMedia: prompt for permission)
+id4(Enable Stop Button) --> id5(getUserMedia: prompt for permission)
 ```
 
 ```mermaid
