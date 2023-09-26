@@ -95,8 +95,8 @@ function deviceOptionChange() {
   deviceChange();
 }
 function getOptionTextFromLabel(label){
-  let text = "Front Facing"; //default
-  if (label.toUpperCase().search("BACK")) text = "Back facing";
+  let text = "Back Facing"; //default
+  if (label.toUpperCase().search("FRONT")) text = "Front facing";
   return text;
 }
 
