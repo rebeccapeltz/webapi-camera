@@ -20,7 +20,7 @@ id10[User clicks Snapshot Button] --> id11(Set canvas element height and width t
 id11(Set canvas element height and width to video height and width) --> id12(Show canvas container)
 id12(Show canvas container) --> id13(Draw Image of video frame onto canvas)
 id13(Draw Image of video frame onto canvas) --> id14(convert Canvas data to “image/jpeg” using toDataURL)
-id14(convert Canvas data to “image/jpeg” using toDataURL) --> id15(remove all hidden links used in previous downloads)
+id14(convert Canvas data to image/jpeg using toDataURL) --> id15(remove all hidden links used in previous downloads)
 id15(remove all hidden links used in previous downloads) --> id16(Enable Download Button)
 ```
 
