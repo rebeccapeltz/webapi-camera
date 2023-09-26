@@ -21,14 +21,14 @@ function disableBtn(id) {
   }
 }
 
-function hide(id){
+function hide(id) {
   let el = document.querySelector(`#${id}`);
   if (!el.classList.contains("hidden")) {
     el.classList.add("hidden");
   }
 }
 
-function show(id){
+function show(id) {
   let el = document.querySelector(`#${id}`);
   if (el.classList.contains("hidden")) {
     el.classList.remove("hidden");
@@ -94,15 +94,15 @@ function deviceOptionChange() {
   data.selectedDevice = value;
   deviceChange();
 }
-function getOptionTextFromLabel(label){
-  debugger
+function getOptionTextFromLabel(label) {
+  // debugger
   let text = "Back Facing"; //default
   if (label.toUpperCase().search("FRONT") >= 0) text = "Front facing";
   return text;
 }
 
 async function getDevices() {
-  await navigator.mediaDevices.getUserMedia({  video: true });
+  await navigator.mediaDevices.getUserMedia({ video: true });
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
     console.log("enumerated devices not supported");
     return false;
@@ -150,6 +150,7 @@ function snapShot() {
     document.querySelector("body").remove(hiddenLink);
   }
   enableBtn("download");
+  show("share");
 }
 
 function stopVideoAndCanvas() {
@@ -184,9 +185,9 @@ function stop() {
   disableBtn("stop");
   disableBtn("download");
   disableBtn("snapshot");
+  hide("share");
 }
 function download() {
-
   if (data.fileData) {
     let a = document.createElement("a");
     a.classList.add("hidden-link");
@@ -196,6 +197,21 @@ function download() {
     a.download = "photo.jpeg";
     document.querySelector("body").append(a);
     a.click();
+  }
+}
+
+async function share() {
+  const files = [data.fileData];
+  if (!navigator.canShare()){
+    alert("You can not share from here.")
+  } else {
+    try{
+      const result = await navigator.share({ files: files });
+    } catch(error){
+      alert("error attempting to share")
+      // debugger
+      console.log(error)
+    }
   }
 }
 
@@ -226,6 +242,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
   document.querySelector("#download").addEventListener("click", (e) => {
     console.log("camera downlaod");
     download();
+  });
+  document.querySelector("#share").addEventListener("click", (e) => {
+    console.log("camera share");
+    share();
   });
 
   enableBtn("camera");

@@ -43,17 +43,26 @@
                 </div>
             </div>
         </div>
-        <div class="row" class="justify-content-center">
-            <form id="device-form"  class="hidden">
-              <label for="device-option">Select Device Option:</label>
-              <select name="device-option" id="device-option" onchange="deviceOptionChange()" form="device-option-form">
-                <!-- <option value="abc">ABC</option> -->
-              </select>
-              <!-- <p>Current Contraint</p>
+        <div class="row row-cols-2 g-2 g-lg-3" class="justify-content-center">
+            <div>
+                <form id="device-form" class="hidden">
+                    <label for="device-option">Camera:</label>
+                    <select name="device-option" id="device-option" onchange="deviceOptionChange()"
+                        form="device-option-form">
+                        <!-- <option value="abc">ABC</option> -->
+                    </select>
+                    <!-- <p>Current Contraint</p>
               <p id="current-constraint"></p> -->
+                </form>
+            </div>
+            <div class="col text-center">
+                <div class="p-3">
+                    <button id="share" style="width:50%;" type="button" class="btn btn-primary btn-sm hidden">Share</button>
+                </div>
+            </div>
         </div>
 
-        <div  class="row row-cols-1 row-cols-lg-2 justify-content-center mb-5">
+        <div class="row row-cols-1 row-cols-lg-2 justify-content-center mb-5">
 
             <div id="canvas-container" class="hidden mb-5">
                 <h3 class="text-center">Snapshot</h3>
