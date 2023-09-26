@@ -11,6 +11,7 @@ id2(Show Video Container) --> id3(Enable Snapshot Button)
 id2(Show Video Container) --> id4(Enable Stop Button)
 id3(Enable Snapshot Button) --> id5(getUserMedia: prompt for permission)
 id4(Enable Stop Button) --> id5(getUserMedia: prompt for permission)
+id5(getUserMedia: prompt for permission) --> id6(getEnumerableDevices: load Device Selection element)
 id6(getEnumerableDevices: load Device Selection element) --> id7(Load Device Selection element: set selection to option 0)
 id7(Load Device Selection element: set selection to option 0) --> id8(Set Constraints based on option 0)
 ```
