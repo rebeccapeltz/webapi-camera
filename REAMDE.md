@@ -3,7 +3,7 @@
 ## Program Flow
 
 ```mermaid
-flowchart TD;
+flowchart TD:
     id0[User clicks Start Button] --> id1(START)
     id1(START)-->id2(Show Video Container)
     id2(Show Video Container)-->id3(Enable Snapshot Button)
