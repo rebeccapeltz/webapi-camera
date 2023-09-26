@@ -2,14 +2,9 @@ const data = {
   videoEl: null,
   canvasEl: null,
   fileData: null,
-  // isStartEnabled: true,
   currentStream: null,
-  // isPhoto: false,
-  // devices: [],
   constraints: {},
   selectedDevice: null,
-  // selectedLabel: null,
-  // cameraState: true,
   options: [],
 };
 
@@ -44,56 +39,25 @@ async function deviceChange() {
   stopVideoAndCanvas();
   setConstraints();
   const result = await getMedia();
-  // data.cameraState = true;
   console.log("device change:", result);
 }
 
 async function start() {
   stop();
   show("video-container");
-  // document.querySelector("#video-container").classList.remove("hidden-video");
   enableBtn("camera");
 
-  // debugger;
   const resultDevices = await getDevices();
-
-  // getDevices()
-  //   .then((res) => {
-  //when first loaded selected device can use 1st option
   data.selectedDevice = data.options[0].value;
-  // debugger;
-  // data.selectedLabel = data.options[0].text;
-  // alert("getDevices:" + data.selectedLabel);
-  // document.querySelector("#current-constraint").innerHTML =
-  //   "getDevices:" + data.slectedDevice + " " + data.selectedLabel;
-
   setConstraints();
-  // document.querySelector("#current-constraint").innerHTML =
-  //   "after setConstraints:" + data.slectedDevice + " " + data.selectedLabel;
-
   console.log("get devices:", resultDevices);
-  // })
-  // .then(() => {
   const resultMedia = getMedia();
   if (resultMedia) {
     console.log("get media", resultMedia);
-
-    // getMedia().then((res) => {
-    // data.isStartEnabled = false;
     disableBtn("camera");
-    // data.cameraState = true;
     enableBtn("stop");
     enableBtn("snapshot");
   }
-  //   // getMedia().then((res) => {
-  //     data.isStartEnabled = false;
-  //     disableBtn("camera");
-  //     data.cameraState = true;
-  //     enableBtn("stop");
-  //     enableBtn("snapshot");
-  //     console.log("get media", res);
-  //   });
-  // });
 }
 
 function setConstraints() {
@@ -106,18 +70,10 @@ function setConstraints() {
       exact: data.selectedDevice,
     };
   }
-  // debugger;
   data.constraints = {
     video: videoConstraints,
     audio: false,
   };
-  // debugger
-  // document.querySelector("#current-constraint").innerHTML =
-  //   "setConstraints:" +
-  //   data.selectedDevice +
-  //   " " +
-  //   data.selectedLabel +
-  //   JSON.stringify(data.constraints, null, 2);
 }
 
 async function getMedia() {
@@ -132,19 +88,19 @@ async function getMedia() {
   }
 }
 function deviceOptionChange() {
-  // debugger;
   const el = document.querySelector("#device-option");
   const value = el.value;
   const text = el.options[el.selectedIndex].text;
   data.selectedDevice = value;
-  // data.selectedLabel = text;
-  // debugger
-  // alert("deviceOptionChange: " + data.selectedLabel);
   deviceChange();
 }
+function getOptionTextFromLabel(label){
+  let text = "Front Facing"; //default
+  if (label.toUpperCase().search("BACK")) text = "Back facing";
+  return text;
+}
+
 async function getDevices() {
-  // debugger;
-  // trigger prompt for permission
   await navigator.mediaDevices.getUserMedia({  video: true });
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
     console.log("enumerated devices not supported");
@@ -163,18 +119,15 @@ async function getDevices() {
     for (let mediaDevice of allDevices) {
       if (mediaDevice.kind === "videoinput") {
         let option = {};
-        option.text = mediaDevice.label;
+        option.text = getOptionTextFromLabel(mediaDevice.label);
         option.value = mediaDevice.deviceId;
         data.options.push(option);
         var selection = document.createElement("option");
         selection.value = option.value;
         selection.text = option.text;
         document.querySelector("#device-option").appendChild(selection);
-        // data.devices.push(mediaDevice);
       }
-      // debugger
-      if (options.length > 1) show("device-form");
-      // document.querySelector("#device-form").classList.remove("hidden-form");
+      if (options.length >= 1) show("device-form");
     }
 
     return true;
@@ -185,16 +138,12 @@ async function getDevices() {
 
 function snapShot() {
   show("canvas-container");
-  // document.querySelector("#canvas-container").classList.remove("hidden-canvas");
   data.canvasEl.width = data.videoEl.videoWidth;
   data.canvasEl.height = data.videoEl.videoHeight;
   data.canvasEl
     .getContext("2d")
     .drawImage(data.videoEl, 0, 0, data.canvasEl.width, data.canvasEl.height);
   data.fileData = data.canvasEl.toDataURL("image/jpeg");
-  // data.isPhoto = true;
-  // data.cameraState = false;
-  //remove any hidden links used for download
   let hiddenLinks = document.querySelectorAll(".hidden_links");
   for (let hiddenLink of hiddenLinks) {
     document.querySelector("body").remove(hiddenLink);
@@ -219,9 +168,6 @@ function stopVideoAndCanvas() {
       .getContext("2d")
       .clearRect(0, 0, data.canvasEl.width, data.canvasEl.height);
   }
-
-  // data.isPhoto = false;
-  // data.cameraState = false;
 }
 
 function stop() {
@@ -229,16 +175,9 @@ function stop() {
   stopVideoAndCanvas();
   // hide video, canvas and form
   hide("video-container");
-  // if (document.querySelector("#video-container")) {
-  //   document.querySelector("#video-container").classList.add("hidden-video");
-  // }
   hide("canvas-container");
-  // if (document.querySelector("#canvas-container")) {
-  //   document.querySelector("#canvas-container").classList.add("hidden-canvas");
-  // }
   if (document.querySelector("#device-form")) {
     hide("device-form");
-    // document.querySelector("#device-form").classList.add("hidden-form");
   }
   enableBtn("camera");
   disableBtn("stop");
@@ -246,12 +185,8 @@ function stop() {
   disableBtn("snapshot");
 }
 function download() {
-  // data.canvasEl.width = data.videoEl.videoWidth;
-  // data.canvasEl.height = data.videoEl.videoHeight;
+
   if (data.fileData) {
-    // data.canvasEl
-    //   .getContext("2d")
-    //   .drawImage(data.videoEl, 0, 0, data.canvasEl.width, data.canvasEl.height);
     let a = document.createElement("a");
     a.classList.add("hidden-link");
     a.href = data.fileData;
@@ -264,9 +199,6 @@ function download() {
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
-  // const videoContainer = document.querySelector("#video-container");
-  // const canvasContainer = document.querySelector("#canvas-container");
-
   let elements = document.querySelectorAll(".home button");
 
   elements.forEach((element) => {
