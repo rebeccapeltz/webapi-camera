@@ -213,6 +213,7 @@ async function share() {
       }
     )
   ];
+  debugger
   // if (!navigator.canShare()){
   //   alert("You can not share from here.")
   // } else {
