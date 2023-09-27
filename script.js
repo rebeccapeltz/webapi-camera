@@ -202,17 +202,28 @@ function download() {
 
 async function share() {
   const files = [data.fileData];
-  if (!navigator.canShare()){
-    alert("You can not share from here.")
-  } else {
-    try{
-      const result = await navigator.share({ files: files });
-    } catch(error){
-      alert("error attempting to share")
-      // debugger
-      console.log(error)
-    }
+  const blob = await (await fetch(data.fileData)).blob();
+  const shareData = [
+    new File(
+      [blob],
+      'snapshot.png',
+      {
+        type: blob.type,
+        lastModified: new Date().getTime()
+      }
+    )
+  ];
+  // if (!navigator.canShare()){
+  //   alert("You can not share from here.")
+  // } else {
+  try {
+    const result = await  navigator.share(shareData);
+  } catch (error) {
+    alert("error attempting to share");
+    // debugger
+    console.log(error);
   }
+  // }
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
