@@ -201,30 +201,24 @@ function download() {
 }
 
 async function share() {
-  const files = [data.fileData];
-  const blob = await (await fetch(data.fileData)).blob();
-  const shareData = [
-    new File(
-      [blob],
-      'snapshot.png',
-      {
-        type: blob.type,
-        lastModified: new Date().getTime()
-      }
-    )
+  // debugger
+  let blob = await (await fetch(data.fileData)).blob();
+  const filesArray = [
+    new File([blob], "snapshot.jpg", {
+      type: blob.type,
+      lastModified: new Date().getTime(),
+    }),
   ];
-  debugger
-  // if (!navigator.canShare()){
-  //   alert("You can not share from here.")
-  // } else {
+  const shareData = {
+    files: filesArray,
+  };
   try {
-    const result = await  navigator.share(shareData);
+    await navigator.share(shareData);
+    alert("shared successfully")
   } catch (error) {
     alert("error attempting to share");
-    // debugger
     console.log(error);
   }
-  // }
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
