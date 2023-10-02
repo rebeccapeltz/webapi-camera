@@ -120,7 +120,8 @@ async function getDevices() {
     for (let mediaDevice of allDevices) {
       if (mediaDevice.kind === "videoinput") {
         let option = {};
-        option.text = getOptionTextFromLabel(mediaDevice.label);
+        // option.text = getOptionTextFromLabel(mediaDevice.label);
+        option.text = mediaDevice.label;
         option.value = mediaDevice.deviceId;
         data.options.push(option);
         var selection = document.createElement("option");
@@ -232,7 +233,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   data.videoEl = document.querySelector("#video");
   data.canvasEl = document.querySelector("#canvas");
 
-  // attach click event listener
+  // attach click event listeners
   document.querySelector("#camera").addEventListener("click", (e) => {
     console.log("camera click");
     start();
