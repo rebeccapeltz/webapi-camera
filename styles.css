@@ -38,22 +38,10 @@ video {
   object-fit: cover;
 }
 
-/* 
-  @media screen and (min-width: 550px) {
-    div#container {
-      margin: 1rem auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 1rem;
-    
-    }
-  } */
-
 h1 {
   text-align: center;
   margin: 1rem;
 }
-
 
 
 button:disabled {
@@ -68,14 +56,15 @@ form {
   margin: 1em;
 }
 
-@media only screen and (min-width: 600px) {
-  .btn-group button {
-    margin: 0 0.5em;
-    border-radius: 1em !important;
-    font-size: 1em;
-    width: 6em;
+  button {
+    text-align: center;
+    margin: 0 0.5rem;
+    border-radius: 1rem !important;
+    font-size: 1rem;
+    width: 110px;
   }
-}
+
+
 .hidden-link {
   visibility: hidden;
 }

@@ -21,45 +21,43 @@
             <h1>Web API Camera</h1>
         </div>
 
+        <div class="col text-center">
+            <div class="p-3">
+                <button id="camera" style="width:50%;" type="button" class="btn btn-primary btn-sm">Start</button>
+            </div>
+        </div>
         <div class="home row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+
             <div class="col text-center">
                 <div class="p-3 border bg-light">
-                    <button id="camera" style="width:75%;" type="button" class="btn btn-primary btn-lg">Start</button>
+                    <button id="snapshot" type="button" class="btn btn-primary">Snapshot</button>
+                </div>
+            </div>
+            <div class="col text-center">
+                <div class="p-3 border bg-light"> <button id="download" type="button"
+                        class="btn btn-primary">Download</button></div>
+            </div>
+            <div class="col text-center">
+                <div class="p-3 border bg-light">
+                    <button id="share" type="button" class="btn btn-primary">Share</button>
                 </div>
             </div>
             <div class="col text-center">
                 <div class="p-3 border bg-light">
-                    <button id="snapshot" style="width:75%;" type="button"
-                        class="btn btn-primary btn-lg">Snapshot</button>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="p-3 border bg-light"> <button id="download" style="width:75%;" type="button"
-                        class="btn btn-primary btn-lg">Download</button></div>
-            </div>
-            <div class="col text-center">
-                <div class="p-3 border bg-light">
-                    <button id="stop" style="width:75%;" type="button" class="btn btn-primary btn-lg">Stop</button>
+                    <button id="stop" type="button" class="btn btn-primary">Stop</button>
                 </div>
             </div>
         </div>
         <div class="row row-cols-2 g-2 g-lg-3" class="justify-content-center">
             <div>
                 <form id="device-form" class="hidden">
-                    <label for="device-option">Camera:</label>
+                    <label for="device-option">Video Device:</label>
                     <select name="device-option" id="device-option" onchange="deviceOptionChange()"
                         form="device-option-form">
-                        <!-- <option value="abc">ABC</option> -->
                     </select>
-                    <!-- <p>Current Contraint</p>
-              <p id="current-constraint"></p> -->
                 </form>
             </div>
-            <div class="col text-center">
-                <div class="p-3">
-                    <button id="share" style="width:50%;" type="button" class="btn btn-primary btn-sm hidden">Share</button>
-                </div>
-            </div>
+
         </div>
 
         <div class="row row-cols-1 row-cols-lg-2 justify-content-center mb-5">

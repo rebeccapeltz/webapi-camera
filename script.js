@@ -110,6 +110,7 @@ async function getDevices() {
   try {
     let allDevices = await navigator.mediaDevices.enumerateDevices();
     data.options = [];
+    
     // clear options before adding
     let select_item = document.querySelector("#device-option");
     let options = select_item.getElementsByTagName("option");
@@ -117,21 +118,21 @@ async function getDevices() {
       select_item.removeChild(options[i]);
     }
 
-    for (let mediaDevice of allDevices) {
-      if (mediaDevice.kind === "videoinput") {
-        let option = {};
-        // option.text = getOptionTextFromLabel(mediaDevice.label);
-        option.text = mediaDevice.label;
-        option.value = mediaDevice.deviceId;
-        data.options.push(option);
-        var selection = document.createElement("option");
-        selection.value = option.value;
-        selection.text = option.text;
-        document.querySelector("#device-option").appendChild(selection);
-      }
-      if (options.length >= 1) show("device-form");
-    }
-
+    // add options to camera facing selector
+    const videoInputDevices = allDevices.filter(
+      (device) => device.kind === "videoinput"
+    );
+    videoInputDevices.forEach((device) => {
+      let option = {};
+      option.text = device.label;
+      option.value = device.deviceId;
+      data.options.push(option);
+      var selection = document.createElement("option");
+      selection.value = option.value;
+      selection.text = option.text;
+      document.querySelector("#device-option").appendChild(selection);
+    });
+    if (options.length >= 1) show("device-form");
     return true;
   } catch (err) {
     throw err;
@@ -151,6 +152,7 @@ function snapShot() {
     document.querySelector("body").remove(hiddenLink);
   }
   enableBtn("download");
+  enableBtn("share");
   show("share");
 }
 
@@ -186,7 +188,7 @@ function stop() {
   disableBtn("stop");
   disableBtn("download");
   disableBtn("snapshot");
-  hide("share");
+  disableBtn("share");
 }
 function download() {
   if (data.fileData) {
@@ -215,7 +217,7 @@ async function share() {
   };
   try {
     await navigator.share(shareData);
-    alert("shared successfully")
+    alert("shared successfully");
   } catch (error) {
     alert("error attempting to share");
     console.log(error);
