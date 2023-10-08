@@ -229,10 +229,16 @@ function flip(){
   const videoCanvasContainer = document.querySelector("#video-canvas");
   if (videoCanvasContainer.classList.contains("flex-row")){
     videoCanvasContainer.classList.remove("flex-row");
+    videoCanvasContainer.classList.remove("flex-wrap");
     videoCanvasContainer.classList.add("flex-row-reverse");
+    videoCanvasContainer.classList.add("flex-wrap-reverse");
+
   } else{
     videoCanvasContainer.classList.remove("flex-row-reverse");
+    videoCanvasContainer.classList.remove("flex-wrap-reverse");
     videoCanvasContainer.classList.add("flex-row");
+    videoCanvasContainer.classList.add("flex-wrap");
+
   }
 
 }
