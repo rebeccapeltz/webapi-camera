@@ -5,8 +5,8 @@ body {
   height: 100%;
 }
 
-.home {
-  margin: 2rem auto;
+.home { 
+  margin: 1rem auto;
 }
 
 .hidden {
@@ -56,7 +56,7 @@ form {
   margin: 1em;
 }
 
-  button {
+  .control {
     text-align: center;
     margin: 0 0.5rem;
     border-radius: 1rem !important;
@@ -75,5 +75,9 @@ footer {
 
 .camera .row {
   height: 215px;
+}
+
+#flip button {
+  width: 50%;
 }
 

@@ -23,31 +23,33 @@
 
         <div class="col text-center">
             <div class="p-1">
-                <button id="camera" type="button" class="btn btn-primary btn-sm">Start</button>
+                <button id="camera" type="button" class="btn btn-primary btn-sm control">Start</button>
             </div>
         </div>
+
         <div class="home row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
 
             <div class="col text-center">
                 <div class="p-2 border bg-light">
-                    <button id="snapshot" type="button" class="btn btn-primary">Snapshot</button>
+                    <button id="snapshot" type="button" class="btn btn-primary control">Snapshot</button>
                 </div>
             </div>
             <div class="col text-center">
                 <div class="p-2 border bg-light"> <button id="download" type="button"
-                        class="btn btn-primary">Download</button></div>
+                        class="btn btn-primary control">Download</button></div>
             </div>
             <div class="col text-center">
                 <div class="p-2 border bg-light">
-                    <button id="share" type="button" class="btn btn-primary">Share</button>
+                    <button id="share" type="button" class="btn btn-primary control">Share</button>
                 </div>
             </div>
             <div class="col text-center">
                 <div class="p-2 border bg-light">
-                    <button id="stop" type="button" class="btn btn-primary">Stop</button>
+                    <button id="stop" type="button" class="btn btn-primary control">Stop</button>
                 </div>
             </div>
         </div>
+
         <div class="row row-cols-2 g-2 g-lg-3" class="justify-content-center">
             <div>
                 <form id="device-form" class="hidden">
@@ -57,21 +59,29 @@
                     </select>
                 </form>
             </div>
+            <div>
+
+                <div id="flip-button" class="p-1 text-center hidden">
+                    <button id="flip" type="button" class="btn btn-primary btn-sm">Flip Camera Location</button>
+                </div>
+
+            </div>
 
         </div>
+        <div id="video-canvas" class="d-flex justify-content-between flex-row">
+            <!-- <div class="row row-cols-1 row-cols-lg-2 justify-content-center mb-5"> -->
 
-        <div class="row row-cols-1 row-cols-lg-2 justify-content-center mb-5">
+                <div id="video-container" class="hidden mb-5">
+                    <h3 class="text-center">Video Camera</h3>
+                    <video id="video" playsinline autoplay></video>
+                </div>
 
-            <div id="video-container" class="hidden mb-3">
-                <h3 class="text-center">Video Camera</h3>
-                <video id="video" playsinline autoplay></video>
-            </div>
+                <div id="canvas-container" class="hidden mb-5">
+                    <h3 class="text-center">Snapshot</h3>
+                    <canvas id="canvas"></canvas>
+                </div>
 
-            <div id="canvas-container" class="hidden mb-3">
-                <h3 class="text-center">Snapshot</h3>
-                <canvas id="canvas"></canvas>
-            </div>
-
+            <!-- </div> -->
         </div>
 
         <div class="row">

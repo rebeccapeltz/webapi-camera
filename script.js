@@ -110,7 +110,7 @@ async function getDevices() {
   try {
     let allDevices = await navigator.mediaDevices.enumerateDevices();
     data.options = [];
-    
+
     // clear options before adding
     let select_item = document.querySelector("#device-option");
     let options = select_item.getElementsByTagName("option");
@@ -141,6 +141,7 @@ async function getDevices() {
 
 function snapShot() {
   show("canvas-container");
+  show("flip-button");
   data.canvasEl.width = data.videoEl.videoWidth;
   data.canvasEl.height = data.videoEl.videoHeight;
   data.canvasEl
@@ -183,6 +184,7 @@ function stop() {
   hide("canvas-container");
   if (document.querySelector("#device-form")) {
     hide("device-form");
+    hide("flip-button");
   }
   enableBtn("camera");
   disableBtn("stop");
@@ -223,6 +225,17 @@ async function share() {
     console.log(error);
   }
 }
+function flip(){
+  const videoCanvasContainer = document.querySelector("#video-canvas");
+  if (videoCanvasContainer.classList.contains("flex-row")){
+    videoCanvasContainer.classList.remove("flex-row");
+    videoCanvasContainer.classList.add("flex-row-reverse");
+  } else{
+    videoCanvasContainer.classList.remove("flex-row-reverse");
+    videoCanvasContainer.classList.add("flex-row");
+  }
+
+}
 
 document.addEventListener("DOMContentLoaded", (e) => {
   let elements = document.querySelectorAll(".home button");
@@ -255,6 +268,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
   document.querySelector("#share").addEventListener("click", (e) => {
     console.log("camera share");
     share();
+  });
+  document.querySelector("#flip").addEventListener("click", (e) => {
+    console.log("camera flip");
+    flip();
   });
 
   enableBtn("camera");
