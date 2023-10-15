@@ -63,13 +63,13 @@ async function start() {
 function setConstraints() {
   const videoConstraints = {};
 
-  if (data.selectedDevice === null) {
-    videoConstraints.facingMode = "environment";
-  } else {
+  // if (data.selectedDevice === null) {
+  //   videoConstraints.facingMode = "environment";
+  // } else {
     videoConstraints.deviceId = {
       exact: data.selectedDevice,
     };
-  }
+  // }
   data.constraints = {
     video: videoConstraints,
     audio: false,
@@ -94,19 +94,14 @@ function deviceOptionChange() {
   data.selectedDevice = value;
   deviceChange();
 }
-function getOptionTextFromLabel(label) {
-  // debugger
-  let text = "Back Facing"; //default
-  if (label.toUpperCase().search("FRONT") >= 0) text = "Front facing";
-  return text;
-}
 
 async function getDevices() {
-  await navigator.mediaDevices.getUserMedia({ video: true });
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
     console.log("enumerated devices not supported");
     return false;
   }
+  await navigator.mediaDevices.getUserMedia({ video: true });
+ 
   try {
     let allDevices = await navigator.mediaDevices.enumerateDevices();
     data.options = [];
@@ -238,7 +233,6 @@ function flip(){
     videoCanvasContainer.classList.remove("flex-wrap-reverse");
     videoCanvasContainer.classList.add("flex-row");
     videoCanvasContainer.classList.add("flex-wrap");
-
   }
 
 }
