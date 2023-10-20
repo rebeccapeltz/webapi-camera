@@ -62,14 +62,10 @@ async function start() {
 
 function setConstraints() {
   const videoConstraints = {};
+  videoConstraints.deviceId = {
+    exact: data.selectedDevice,
+  };
 
-  // if (data.selectedDevice === null) {
-  //   videoConstraints.facingMode = "environment";
-  // } else {
-    videoConstraints.deviceId = {
-      exact: data.selectedDevice,
-    };
-  // }
   data.constraints = {
     video: videoConstraints,
     audio: false,
@@ -101,7 +97,7 @@ async function getDevices() {
     return false;
   }
   await navigator.mediaDevices.getUserMedia({ video: true });
- 
+
   try {
     let allDevices = await navigator.mediaDevices.enumerateDevices();
     data.options = [];
@@ -143,13 +139,9 @@ function snapShot() {
     .getContext("2d")
     .drawImage(data.videoEl, 0, 0, data.canvasEl.width, data.canvasEl.height);
   data.fileData = data.canvasEl.toDataURL("image/jpeg");
-  let hiddenLinks = document.querySelectorAll(".hidden_links");
-  for (let hiddenLink of hiddenLinks) {
-    document.querySelector("body").remove(hiddenLink);
-  }
+ 
   enableBtn("download");
   enableBtn("share");
-  show("share");
 }
 
 function stopVideoAndCanvas() {
@@ -188,6 +180,12 @@ function stop() {
   disableBtn("share");
 }
 function download() {
+  // cleanup any existing hidden links
+  let hiddenLinks = document.querySelectorAll(".hidden_links");
+  for (let hiddenLink of hiddenLinks) {
+    document.querySelector("body").remove(hiddenLink);
+  }
+
   if (data.fileData) {
     let a = document.createElement("a");
     a.classList.add("hidden-link");
@@ -220,21 +218,19 @@ async function share() {
     console.log(error);
   }
 }
-function flip(){
+function flip() {
   const videoCanvasContainer = document.querySelector("#video-canvas");
-  if (videoCanvasContainer.classList.contains("flex-row")){
+  if (videoCanvasContainer.classList.contains("flex-row")) {
     videoCanvasContainer.classList.remove("flex-row");
     videoCanvasContainer.classList.remove("flex-wrap");
     videoCanvasContainer.classList.add("flex-row-reverse");
     videoCanvasContainer.classList.add("flex-wrap-reverse");
-
-  } else{
+  } else {
     videoCanvasContainer.classList.remove("flex-row-reverse");
     videoCanvasContainer.classList.remove("flex-wrap-reverse");
     videoCanvasContainer.classList.add("flex-row");
     videoCanvasContainer.classList.add("flex-wrap");
   }
-
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
